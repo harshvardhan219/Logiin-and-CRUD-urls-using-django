@@ -1,0 +1,40 @@
+{% extends "student_register/base.html" %} 
+
+{% block content %}
+  
+  <table class="table table-borderless">
+   <thread class="border-bottom font-weight-bold">
+      <tr>
+         <td><strong>Full Name</strong></td>
+         <td><strong>Mobile</strong></td>
+         <td><strong>Stream</strong></td>
+         <td>
+            <a class="btn btn-success" href="{% url 'student_insert' %}" role="button">
+             Add New
+             </a>
+         </td>
+      </tr>
+   </thread>
+   <tbody>
+       {% for student in student_list %}
+          <tr>
+             <td>{{student.fullname}}</td>
+             <td>{{student.mobile}}</td>
+             <td>{{student.stream}}</td>
+             <td>
+               <a class="btn btn-secondary" href="{% url 'student_update' student.id %}" role="button">
+                  Update Details
+               </a>
+               <form action="{% url 'student_delete' student.id %}" method="post" class="d-inline">
+                 {% csrf_token %} 
+                 <button class="btn btn-danger" type="submit">
+                   Delete
+                 </button>
+               </form>
+             </td>
+          </tr>  
+       {% endfor %}
+   </tbody>
+  </table>
+
+{% endblock content %} 
